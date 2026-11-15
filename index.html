@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1830">
+  <meta name="description" content="夜のホーム、睡眠レポート、マイルームを体験できるYoruRoomの3画面デモです。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="YoruRoom">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" href="./icons/icon-192.png" sizes="192x192">
+  <link rel="stylesheet" href="./styles.css">
+  <title>YoruRoom Demo</title>
+</head>
+<body>
+  <a class="skip-link" href="#app-content">本文へ移動</a>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M20.7 15.2A8.7 8.7 0 0 1 8.8 3.3 8.7 8.7 0 1 0 20.7 15.2Z"/>
+      <path d="m17.8 3 .5 1.3 1.2.5-1.2.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3Z"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <path d="M4 19V5M4 19h16"/>
+      <path d="m6.5 15 4-4 3 2.5 5-6"/>
+    </symbol>
+    <symbol id="icon-house" viewBox="0 0 24 24">
+      <path d="m3 11 9-7 9 7"/>
+      <path d="M5.5 10v10h13V10M9.5 20v-6h5v6"/>
+    </symbol>
+    <symbol id="icon-sparkle" viewBox="0 0 24 24">
+      <path d="m12 2 1.4 5.1L18 9l-4.6 1.9L12 16l-1.4-5.1L6 9l4.6-1.9L12 2Z"/>
+      <path d="m19 14 .7 2.3L22 17l-2.3.7L19 20l-.7-2.3L16 17l2.3-.7L19 14Z"/>
+    </symbol>
+    <symbol id="icon-bed" viewBox="0 0 24 24">
+      <path d="M3 18v-7h18v7M3 15h18M6 11V7h5a3 3 0 0 1 3 3v1M3 20v-2M21 20v-2"/>
+    </symbol>
+    <symbol id="icon-stop" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="M9 9h6v6H9z"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4V8Z"/>
+    </symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/>
+    </symbol>
+    <symbol id="icon-camera" viewBox="0 0 24 24">
+      <path d="M8 6.5 9.4 4h5.2L16 6.5h3A2 2 0 0 1 21 8.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8.5a2 2 0 0 1 2-2h3Z"/>
+      <circle cx="12" cy="13" r="3.5"/>
+    </symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24">
+      <path d="M5 17h14l-1.5-2.3V10a5.5 5.5 0 0 0-11 0v4.7L5 17Z"/><path d="M10 20h4"/>
+    </symbol>
+    <symbol id="icon-coin" viewBox="0 0 24 24">
+      <path d="m12 3 7 4v10l-7 4-7-4V7l7-4Z"/><circle cx="12" cy="12" r="2.2"/>
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"/><path d="m8 12 2.7 2.7L16.5 9"/>
+    </symbol>
+    <symbol id="icon-flame" viewBox="0 0 24 24">
+      <path d="M13 2c.5 4-3.2 5.2-3.2 8.3 0 1.4.8 2.4 1.8 3.1-.1-2.4 1.5-3.3 2.8-4.8 1.8 1.7 3.1 3.8 3.1 6.3a5.5 5.5 0 0 1-11 0C6.5 9.5 12 8.2 13 2Z"/>
+    </symbol>
+    <symbol id="icon-paint" viewBox="0 0 24 24">
+      <path d="M14 4 4.8 13.2a2.5 2.5 0 0 0 0 3.6l2.4 2.4a2.5 2.5 0 0 0 3.6 0L20 10"/><path d="m13 5 6 6M6 12l6 6"/>
+    </symbol>
+    <symbol id="icon-light" viewBox="0 0 24 24">
+      <path d="M8.5 15.5a6 6 0 1 1 7 0c-1 .7-1.5 1.5-1.5 2.5h-4c0-1-.5-1.8-1.5-2.5Z"/><path d="M10 21h4M12 2V1M4.2 4.2l-.8-.8M19.8 4.2l.8-.8M3 12H1M23 12h-2"/>
+    </symbol>
+    <symbol id="icon-chair" viewBox="0 0 24 24">
+      <path d="M7 12V7a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v5M5 11v5h14v-5M7 16v4M17 16v4"/>
+    </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24">
+      <path d="M20 4C12 4 6 8 6 14c0 3 2 5 5 5 6 0 9-7 9-15Z"/><path d="M4 21c2-5 6-9 12-12"/>
+    </symbol>
+  </svg>
+
+  <div class="desktop-halo" aria-hidden="true"></div>
+  <div class="app-frame">
+    <main id="app-content">
+      <section class="scene scene-home is-active" id="panel-home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+        <div class="scene-inner">
+          <header class="scene-header">
+            <div>
+              <p class="eyebrow">こんばんは</p>
+              <h1>今夜を、<br>少しやさしく。</h1>
+            </div>
+            <div class="demo-badge">
+              <svg aria-hidden="true"><use href="#icon-sparkle"></use></svg>
+              <span>デモ表示<br>架空データ</span>
+            </div>
+          </header>
+
+          <article class="glass-card status-card" id="bed-status-card" data-active="true">
+            <div class="icon-well status-icon">
+              <svg aria-hidden="true"><use href="#icon-bed"></use></svg>
+            </div>
+            <div class="card-copy">
+              <h2 id="bed-status-title">ベッドモード中</h2>
+              <p id="bed-status-description">寝室周辺でSNS時間を見守っています</p>
+            </div>
+            <span class="status-dot" aria-hidden="true"></span>
+          </article>
+
+          <article class="dark-card usage-card">
+            <div class="card-heading-row">
+              <div>
+                <h2>今夜のSNS</h2>
+                <p>上限まであと6分</p>
+              </div>
+              <strong><span>9</span> / 15分</strong>
+            </div>
+            <div class="progress-track" role="progressbar" aria-label="今夜のSNS利用時間" aria-valuemin="0" aria-valuemax="15" aria-valuenow="9" aria-valuetext="15分中9分">
+              <span></span>
+            </div>
+            <div class="app-chips" aria-label="選択したアプリ">
+              <span class="app-chip"><b aria-hidden="true">X</b> X</span>
+              <span class="app-chip"><svg aria-hidden="true"><use href="#icon-video"></use></svg>YouTube</span>
+              <span class="app-chip"><svg aria-hidden="true"><use href="#icon-camera"></use></svg>Instagram</span>
+            </div>
+          </article>
+
+          <article class="glass-card tonight-card">
+            <div class="small-icon">
+              <svg aria-hidden="true"><use href="#icon-bell"></use></svg>
+            </div>
+            <div class="card-copy">
+              <h2>23:30に休む準備</h2>
+              <p>目標睡眠 7時間&nbsp; • &nbsp;連続達成 4日</p>
+            </div>
+            <span class="coin-balance"><b>120</b><svg aria-hidden="true"><use href="#icon-coin"></use></svg></span>
+          </article>
+
+          <button class="primary-action" id="bed-mode-toggle" type="button" aria-pressed="true">
+            <svg aria-hidden="true"><use id="bed-toggle-icon" href="#icon-stop"></use></svg>
+            <span id="bed-toggle-label">ベッドモードを終了</span>
+          </button>
+          <p class="demo-disclaimer">この画面は体験用です。実際のアプリ制限や位置情報は使用しません。</p>
+        </div>
+      </section>
+
+      <section class="scene scene-sleep" id="panel-sleep" role="tabpanel" aria-labelledby="tab-sleep" tabindex="0" hidden>
+        <div class="scene-inner">
+          <header class="scene-header">
+            <div>
+              <p class="eyebrow">おはよう</p>
+              <h1>よく眠れました</h1>
+            </div>
+            <div class="demo-badge">
+              <svg aria-hidden="true"><use href="#icon-sparkle"></use></svg>
+              <span>デモ表示<br>架空データ</span>
+            </div>
+          </header>
+
+          <article class="glass-card achievement-card">
+            <div class="sun-medallion"><svg aria-hidden="true"><use href="#icon-sun"></use></svg></div>
+            <div>
+              <h2>目標達成！</h2>
+              <p>昨夜は7時間36分眠りました</p>
+              <span class="reward"><svg aria-hidden="true"><use href="#icon-coin"></use></svg>+10コイン</span>
+            </div>
+          </article>
+
+          <article class="dark-card chart-card">
+            <div class="card-heading-row">
+              <h2>直近7日</h2>
+              <span class="average">平均 7.2時間</span>
+            </div>
+            <div class="sleep-chart">
+              <svg viewBox="0 0 340 210" role="img" aria-labelledby="sleep-chart-title sleep-chart-desc">
+                <title id="sleep-chart-title">直近7日間の睡眠時間</title>
+                <desc id="sleep-chart-desc">月曜6.2時間、火曜7.1時間、水曜6.8時間、木曜7.5時間、金曜7.3時間、土曜8時間、日曜7.6時間。目標は7時間です。</desc>
+                <defs>
+                  <linearGradient id="sleepArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#f5a46d" stop-opacity=".45"/>
+                    <stop offset="1" stop-color="#f5a46d" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="grid-lines">
+                  <path d="M28 30H324M28 65H324M28 100H324M28 135H324M28 170H324"/>
+                </g>
+                <g class="y-labels" aria-hidden="true">
+                  <text x="0" y="34">9h</text><text x="0" y="69">8h</text><text x="0" y="104">7h</text><text x="0" y="139">6h</text><text x="0" y="174">5h</text>
+                </g>
+                <path class="goal-line" d="M28 100H324"/>
+                <text class="goal-label" x="32" y="94">目標 7h</text>
+                <path class="area" d="M28 128L77 96.5L126 107L175 82.5L224 89.5L273 65L322 79L322 170L28 170Z"/>
+                <path class="line" d="M28 128L77 96.5L126 107L175 82.5L224 89.5L273 65L322 79"/>
+                <g class="points">
+                  <circle cx="28" cy="128" r="4"/><circle cx="77" cy="96.5" r="4"/><circle cx="126" cy="107" r="4"/><circle cx="175" cy="82.5" r="4"/><circle cx="224" cy="89.5" r="4"/><circle cx="273" cy="65" r="4"/><circle cx="322" cy="79" r="4"/>
+                </g>
+                <g class="x-labels" aria-hidden="true">
+                  <text x="28" y="198">月</text><text x="77" y="198">火</text><text x="126" y="198">水</text><text x="175" y="198">木</text><text x="224" y="198">金</text><text x="273" y="198">土</text><text x="322" y="198">日</text>
+                </g>
+              </svg>
+            </div>
+          </article>
+
+          <div class="metric-grid" aria-label="睡眠のまとめ">
+            <article class="metric-card">
+              <svg aria-hidden="true"><use href="#icon-moon"></use></svg><strong>7.2h</strong><span>平均</span>
+            </article>
+            <article class="metric-card">
+              <svg aria-hidden="true"><use href="#icon-check"></use></svg><strong>5日</strong><span>達成</span>
+            </article>
+            <article class="metric-card">
+              <svg aria-hidden="true"><use href="#icon-flame"></use></svg><strong>4日</strong><span>連続</span>
+            </article>
+          </div>
+
+          <article class="glass-card recent-card">
+            <div><p>昨夜の記録</p><strong>23:48&nbsp; → &nbsp;7:24</strong></div>
+            <span>7時間36分</span>
+          </article>
+          <p class="demo-disclaimer">睡眠時間と報酬は、すべてデモ用の架空データです。</p>
+        </div>
+      </section>
+
+      <section class="scene scene-room" id="panel-room" role="tabpanel" aria-labelledby="tab-room" tabindex="0" hidden>
+        <div class="scene-inner">
+          <header class="scene-header room-header">
+            <div>
+              <h1>マイルーム</h1>
+              <p>眠るほど、部屋が育つ</p>
+            </div>
+            <div class="header-right">
+              <div class="demo-badge">
+                <svg aria-hidden="true"><use href="#icon-sparkle"></use></svg>
+                <span>デモ表示<br>架空データ</span>
+              </div>
+              <span class="coin-balance"><b>120</b><svg aria-hidden="true"><use href="#icon-coin"></use></svg></span>
+            </div>
+          </header>
+
+          <div class="room-stage wallpaper-0 lamp-on" id="room-stage" role="img" aria-label="青い壁紙、点灯中のランプ、オークの椅子を配置した寝室">
+            <div class="room-glow" aria-hidden="true"></div>
+            <div class="room-window" aria-hidden="true"><span class="window-moon"></span><i></i><i></i><i></i></div>
+            <div class="room-floor" aria-hidden="true"></div>
+            <div class="room-bed" aria-hidden="true"><span class="headboard"></span><span class="mattress"></span><span class="pillow"></span><span class="blanket"></span></div>
+            <div class="room-plant fixed-plant" aria-hidden="true"><span></span><i></i><i></i><i></i></div>
+            <div class="room-lamp" aria-hidden="true"><span class="shade"></span><span class="pole"></span><span class="base"></span></div>
+            <div class="placed-item placed-chair is-visible" data-placed="chair" aria-hidden="true"><span></span><i></i></div>
+            <div class="placed-item placed-plant" data-placed="plant" aria-hidden="true"><span></span><i></i><i></i><i></i><b></b></div>
+            <div class="placed-item placed-moon-light" data-placed="moon" aria-hidden="true"><span></span></div>
+          </div>
+
+          <div class="room-controls">
+            <button id="wallpaper-button" type="button">
+              <svg aria-hidden="true"><use href="#icon-paint"></use></svg>
+              <span>壁紙</span>
+            </button>
+            <button id="lamp-button" type="button" aria-pressed="true">
+              <svg aria-hidden="true"><use href="#icon-light"></use></svg>
+              <span id="lamp-button-label">消灯</span>
+            </button>
+          </div>
+
+          <article class="dark-card shop-card">
+            <div class="card-heading-row">
+              <h2>今夜のおすすめ</h2>
+              <span>タップして配置</span>
+            </div>
+            <div class="shop-grid" role="group" aria-label="配置する家具">
+              <button class="shop-item is-selected" type="button" data-item="chair" aria-pressed="true">
+                <svg aria-hidden="true"><use href="#icon-chair"></use></svg>
+                <strong>オークの椅子</strong>
+                <span><svg aria-hidden="true"><use href="#icon-coin"></use></svg>35</span>
+              </button>
+              <button class="shop-item" type="button" data-item="plant" aria-pressed="false">
+                <svg aria-hidden="true"><use href="#icon-leaf"></use></svg>
+                <strong>ポトス</strong>
+                <span><svg aria-hidden="true"><use href="#icon-coin"></use></svg>20</span>
+              </button>
+              <button class="shop-item" type="button" data-item="moon" aria-pressed="false">
+                <svg aria-hidden="true"><use href="#icon-moon"></use></svg>
+                <strong>月のライト</strong>
+                <span><svg aria-hidden="true"><use href="#icon-coin"></use></svg>45</span>
+              </button>
+            </div>
+          </article>
+          <p class="demo-disclaimer">家具の購入やコイン消費は発生しない体験用画面です。</p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" role="tablist" aria-label="デモ画面">
+      <button class="nav-tab is-selected" id="tab-home" type="button" role="tab" aria-selected="true" aria-controls="panel-home" data-scene="home">
+        <svg aria-hidden="true"><use href="#icon-moon"></use></svg><span>ホーム</span>
+      </button>
+      <button class="nav-tab" id="tab-sleep" type="button" role="tab" aria-selected="false" aria-controls="panel-sleep" data-scene="sleep" tabindex="-1">
+        <svg aria-hidden="true"><use href="#icon-chart"></use></svg><span>睡眠</span>
+      </button>
+      <button class="nav-tab" id="tab-room" type="button" role="tab" aria-selected="false" aria-controls="panel-room" data-scene="room" tabindex="-1">
+        <svg aria-hidden="true"><use href="#icon-house"></use></svg><span>部屋</span>
+      </button>
+    </nav>
+  </div>
+
+  <p class="sr-only" id="live-region" role="status" aria-live="polite"></p>
+  <script src="./app.js" defer></script>
+</body>
+</html>
